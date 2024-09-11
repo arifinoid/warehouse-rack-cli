@@ -36,3 +36,12 @@ func (r *RackSystem) RackIn(sku string, expDate string) {
 	r.Slots[slot] = &Product{SKU: sku, ExpiryDate: expDate}
 	fmt.Printf("Allocated slot number: %d\n", slot+1)
 }
+
+func (r *RackSystem) RackOut(slot int) {
+	if slot < 0 || slot >= len(r.Slots) || r.Slots[slot] == nil {
+		fmt.Println("Invalid slot or slot is already free")
+		return
+	}
+	r.Slots[slot] = nil
+	fmt.Printf("Slot number %d is free\n", slot+1)
+}

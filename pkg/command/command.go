@@ -35,7 +35,16 @@ func ProcessCommand(r *rack.RackSystem, cmd string) *rack.RackSystem {
 		}
 		r.RackIn(args[1], args[2])
 	case "rack_out":
-		return r
+		if len(args) != 2 {
+			fmt.Println("Invalid input for rack_out. Usage: rack_out <slot>")
+			return r
+		}
+		slot, err := strconv.Atoi(args[1])
+		if err != nil || slot < 0 || slot >= len(r.Slots) {
+			fmt.Printf("Invalid slot number: %s\n", args[1])
+			return r
+		}
+		r.RackOut(slot - 1)
 	case "status":
 		return r
 	case "sku_numbers_for_product_with_exp_date":
