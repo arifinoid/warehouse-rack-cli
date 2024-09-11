@@ -60,7 +60,11 @@ func ProcessCommand(r *rack.RackSystem, cmd string) *rack.RackSystem {
 		}
 		r.FindSlotsByExpDate(args[1])
 	case "slot_number_for_sku_number":
-		return r
+		if len(args) != 2 {
+			fmt.Println("Invalid input for slot_number_for_sku_number. Usage: slot_number_for_sku_number <sku_number>")
+			return r
+		}
+		r.FindSlotBySKU(args[1])
 	case "exit":
 		fmt.Println("Exiting...")
 		os.Exit(0)

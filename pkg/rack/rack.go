@@ -94,3 +94,13 @@ func (r *RackSystem) FindSlotsByExpDate(expDate string) {
 		fmt.Println(strings.Join(strSlots, ", "))
 	}
 }
+
+func (r *RackSystem) FindSlotBySKU(sku string) {
+	for i, slot := range r.Slots {
+		if slot != nil && slot.SKU == sku {
+			fmt.Println(i + 1)
+			return
+		}
+	}
+	fmt.Println("Not found")
+}

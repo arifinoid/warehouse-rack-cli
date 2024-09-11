@@ -72,4 +72,12 @@ func TestRackSystem(t *testing.T) {
 	if output != "2\n" {
 		t.Errorf("Expected message %q, got %q", "2\n", output)
 	}
+
+	// slot_number_for_sku_number
+	output = lib.CaptureOutput(func() {
+		r.FindSlotBySKU("SD92349WW")
+	})
+	if output != "2\n" {
+		t.Errorf("Expected message %q, got %q", "2\n", output)
+	}
 }
