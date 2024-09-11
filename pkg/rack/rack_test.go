@@ -64,4 +64,12 @@ func TestRackSystem(t *testing.T) {
 	if output != "SD92349WW\n" {
 		t.Errorf("Expected message %q, got %q", "SD92349WW\n", output)
 	}
+
+	// slot_numbers_for_product_with_exp_date
+	output = lib.CaptureOutput(func() {
+		r.FindSlotsByExpDate("2024-02-28")
+	})
+	if output != "2\n" {
+		t.Errorf("Expected message %q, got %q", "2\n", output)
+	}
 }

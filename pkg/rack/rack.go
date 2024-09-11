@@ -2,6 +2,7 @@ package rack
 
 import (
 	"fmt"
+	"strconv"
 	"strings"
 )
 
@@ -71,5 +72,25 @@ func (r *RackSystem) FindSKUByExpDate(expDate string) {
 		fmt.Println("No product found with expiry date", expDate)
 	} else {
 		fmt.Println(strings.Join(skus, ", "))
+	}
+}
+
+func (r *RackSystem) FindSlotsByExpDate(expDate string) {
+	var slots []int
+
+	for i, slot := range r.Slots {
+		if slot != nil && slot.ExpiryDate == expDate {
+			slots = append(slots, i+1)
+		}
+	}
+
+	if len(slots) == 0 {
+		fmt.Println("No slots with products expiring on that date")
+	} else {
+		strSlots := make([]string, len(slots))
+		for i, slot := range slots {
+			strSlots[i] = strconv.Itoa(slot)
+		}
+		fmt.Println(strings.Join(strSlots, ", "))
 	}
 }
