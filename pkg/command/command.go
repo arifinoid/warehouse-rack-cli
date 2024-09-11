@@ -29,7 +29,11 @@ func ProcessCommand(r *rack.RackSystem, cmd string) *rack.RackSystem {
 		r = rack.NewRackSystem(numSlots)
 		return r
 	case "rack":
-		return r
+		if len(args) != 3 {
+			fmt.Println("Invalid input for rack. Usage: rack <sku> <exp_date>")
+			return r
+		}
+		r.RackIn(args[1], args[2])
 	case "rack_out":
 		return r
 	case "status":
