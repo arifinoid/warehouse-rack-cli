@@ -48,4 +48,20 @@ func TestRackSystem(t *testing.T) {
 	if output != expectedMessage {
 		t.Errorf("Expected message %q, got %q", expectedMessage, output)
 	}
+
+	// status
+	output = lib.CaptureOutput(func() {
+		r.Status()
+	})
+	if output != "Slot No.\tSKU No.\t\tExp Date\n2\t\tSD92349WW\t\t2024-02-28\n" {
+		t.Errorf("Expected message %q, got %q", "Slot No.\tSKU No.\t\tExp Date\n2\t\tSD92349WW\t\t2024-02-28\n", output)
+	}
+
+	// sku_numbers_for_product_with_exp_date
+	output = lib.CaptureOutput(func() {
+		r.FindSKUByExpDate("2024-02-28")
+	})
+	if output != "SD92349WW\n" {
+		t.Errorf("Expected message %q, got %q", "SD92349WW\n", output)
+	}
 }

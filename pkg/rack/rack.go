@@ -1,6 +1,9 @@
 package rack
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 type Product struct {
 	SKU        string
@@ -44,4 +47,29 @@ func (r *RackSystem) RackOut(slot int) {
 	}
 	r.Slots[slot] = nil
 	fmt.Printf("Slot number %d is free\n", slot+1)
+}
+
+func (r *RackSystem) Status() {
+	fmt.Println("Slot No.\tSKU No.\t\tExp Date")
+	for i, slot := range r.Slots {
+		if slot != nil {
+			fmt.Printf("%d\t\t%s\t\t%s\n", i+1, slot.SKU, slot.ExpiryDate)
+		}
+	}
+}
+
+func (r *RackSystem) FindSKUByExpDate(expDate string) {
+	var skus []string
+
+	for _, slot := range r.Slots {
+		if slot != nil && slot.ExpiryDate == expDate {
+			skus = append(skus, slot.SKU)
+		}
+	}
+
+	if len(skus) == 0 {
+		fmt.Println("No product found with expiry date", expDate)
+	} else {
+		fmt.Println(strings.Join(skus, ", "))
+	}
 }

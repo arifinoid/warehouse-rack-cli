@@ -46,9 +46,13 @@ func ProcessCommand(r *rack.RackSystem, cmd string) *rack.RackSystem {
 		}
 		r.RackOut(slot - 1)
 	case "status":
-		return r
+		r.Status()
 	case "sku_numbers_for_product_with_exp_date":
-		return r
+		if len(args) != 2 {
+			fmt.Println("Invalid input for sku_numbers_for_product_with_exp_date. Usage: sku_numbers_for_product_with_exp_date <exp_date>")
+			return r
+		}
+		r.FindSKUByExpDate(args[1])
 	case "slot_numbers_for_product_with_exp_date":
 		return r
 	case "slot_number_for_sku_number":
