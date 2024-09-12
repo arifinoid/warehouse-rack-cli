@@ -5,3 +5,4 @@
 #
 # After this is run, bin/warehouse_rack
 # should Just Work.
+go mod tidy
