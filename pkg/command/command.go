@@ -17,6 +17,7 @@ func ProcessCommand(r *rack.RackSystem, cmd string) *rack.RackSystem {
 
 	switch args[0] {
 	case "create_warehouse_rack":
+	case "create_rack":
 		if len(args) != 2 {
 			fmt.Println("Invalid input for create_warehouse_rack. Usage: create_warehouse_rack <n>")
 			return r

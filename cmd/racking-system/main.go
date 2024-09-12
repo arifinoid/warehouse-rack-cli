@@ -36,6 +36,30 @@ func main() {
 
 	} else {
 		// interactive mode
-		fmt.Println("Hello from interactive mode warehouse-rack-cli.")
+		fmt.Println("Welcome to interactive mode of warehouse-rack-cli.")
+		fmt.Println("Type commands, or 'exit' to quit.")
+
+		reader := bufio.NewReader(os.Stdin)
+		var rackSystem *rack.RackSystem
+		for {
+			fmt.Print("> ")
+			line, err := reader.ReadString('\n')
+			if err != nil {
+				fmt.Println("Error reading input:", err)
+				continue
+			}
+
+			line = line[:len(line)-1]
+
+			if line == "exit" {
+				fmt.Println("Goodbye!")
+				break
+			}
+
+			if line == "" {
+				continue
+			}
+			rackSystem = command.ProcessCommand(rackSystem, line)
+		}
 	}
 }
